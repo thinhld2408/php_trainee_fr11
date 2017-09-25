@@ -1,0 +1,77 @@
+<?php
+if(isset($_GET['page'])){
+    $page = $_GET['page'];
+}
+else {
+    echo 'xx';
+    $page = 1;
+}
+$model = new model_pagination();
+$totalRe = $model->totalRecord();
+$totalPage = $model->totalPage($totalRe);
+$pageCurrent = $model->currentRow($page);
+$query_page = $model->getDataPage($pageCurrent);
+
+?>
+<form>
+    <table style="position: relative;top: 40px;left: 10px;" cellpadding="10" cellspacing="1">
+        <tbody>
+        <tr>
+            <th colspan="6" style="text-align:center;color: blue">LIST USER</th>
+        </tr>
+        <tr style="background-color: rgba(44, 42, 76, 0.15)">
+            <th style="text-align:left;"><strong>Name</strong></th>
+            <th style="text-align:right;"><strong>Email</strong></th>
+            <th style="text-align:right;"><strong>Address</strong></th>
+            <th style="text-align:right;"><strong>Phone</strong></th>
+            <th style="text-align:right;"><strong>Country</strong></th>
+            <th style="text-align:right;"><strong>Male</strong></th>
+            <th style="text-align:center;"><strong>Edit</strong></th>
+            <th style="text-align:center;"><strong>Delete</strong></th>
+        </tr>
+        <?php
+
+            foreach ($query_page as $user){
+        ?>
+        <form method="post" action="">
+            <tr>
+                <td style="text-align:left;border-bottom:#F0F0F0 1px solid;"><strong><?php echo $user["username"]; ?></strong></td>
+                <td style="text-align:left;border-bottom:#F0F0F0 1px solid;"><?php echo $user["email"]; ?></td>
+                <td style="text-align:center;border-bottom:#F0F0F0 1px solid;"><?php echo $user["address"]; ?></td>
+                <td style="text-align:left;border-bottom:#F0F0F0 1px solid;"><?php echo $user["phone"]; ?></td>
+                <td style="text-align:center;border-bottom:#F0F0F0 1px solid;"><?php echo $user["country"]; ?></td>
+                <td style="text-align:center;border-bottom:#F0F0F0 1px solid;"><?php echo $user["gender"]; ?></td>
+                <td style="text-align:center;border-bottom:#F0F0F0 1px solid;">
+                    <a  href="index.php?controller=users&action=edit&id=<?php echo $user["id"]; ?>" class="btnAction" >Edit</a></td>
+                <td style="text-align:center;border-bottom:#F0F0F0 1px solid;">
+                    <a style="color: red" href="index.php?controller=users&action=del&id=<?php echo $user["id"]; ?>" class="btnAction">Delete</a>
+                </td>
+            </tr>
+            <?php }
+            ?>
+            <tr>
+                <td colspan="7" style="text-align:center;border-bottom:#F0F0F0 1px solid;">
+                    <a style="float: right;background-color: #6aadf1;width: 60px;height: 25px;" class="btnAction" href="index.php?controller=users&action=create">Create</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6" style="text-align:center;border-bottom:#F0F0F0 1px solid;">
+                    <p id="pagination"><?php
+                        $listPage = "";
+                        for($i=1; $i <= $totalPage;$i++){
+                            if($i == $listPage)// $i="";$_GET['page']="";
+                            {
+                                $listPage = '<span>'.$i .'</span>';
+                            }
+                            else {
+                                $listPage .= '<a href="index.php?controller=users&action=listView?page='.$i.'">'.$i.' '.'</a>';
+                            }
+                        }
+                        echo $listPage;
+                        ?></p>
+                </td>
+            </tr>
+        </form>
+        </tbody>
+    </table>
+</form>
