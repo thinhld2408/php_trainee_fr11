@@ -10,9 +10,17 @@ Class users
 {
     function listView()
     {
-        $models = new model_users();
-        $listingUser = $models->getListView('tbl_trainee');
-        $data['listUser'] = $listingUser;
+        $model = new model_pagination();
+        if(isset($_GET['page'])){
+            $page = $_GET['page'];
+        }else{
+            $page = 1;
+        }
+        $totalRe = $model->totalRecord();
+        $totalPage = $model->totalPage($totalRe);
+        $pageCurrent = $model->currentRow($page);
+        $data['listUser'] = $model->getDataPage($pageCurrent);
+        $data['totalPage'] = $totalPage;
         loadview('listView',$data);
 
     }
@@ -102,7 +110,8 @@ Class users
 
             if($err){
                 $data['err'] = $err;
-                loadview('create',$data);
+                $data['user'] = $_users;
+                loadview('edit',$data);
             }else{
                 $result = $model->update('tbl_trainee',$_users);
                 if($result){
@@ -177,6 +186,7 @@ Class users
 
             if($err){
                 $data['err'] = $err;
+                $data['user'] = $_users;
                 loadview('create',$data);
             }else{
                 $result = $model->create('tbl_trainee',$_users);

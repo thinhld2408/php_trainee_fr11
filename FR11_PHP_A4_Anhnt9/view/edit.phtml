@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <body style="margin: 0 auto;">
 <header>
     <style>
@@ -6,58 +10,65 @@
         }
     </style>
 </header>
-<form method="POST" action="index.php?controller=users&action=handleUpdate&id=<?php echo $data['listUsers']['id']; ?>">
+<form method="POST" action="index.php?controller=users&action=handleUpdate&id=<?php if(isset($data['listUsers'])) echo $data['listUsers']['id']; ?>">
     <table style="background-color:#F0F0F0;position: relative;top: 30px;left:500px;" cellpadding="10" cellspacing="1">
         <tr>
             <th align="center" colspan="2" style="background: green;color: white"><label>Create User</label></th>
         </tr>
         <tr>
             <td><label>User Name</label></td>
-            <td><input type="text" name="username" value="<?php echo $data['listUsers']['username'] ?>"/></td>
+            <td><input type="text" name="username" value="<?php if(isset($data['listUsers'])) echo $data['listUsers']['username'];
+                if(isset($data['user']['username'])) echo $data['user']['username'];?>"/></td>
         </tr>
         <tr>
-            <td colspan="2" align="right"><span class="error"> <?php if(isset($data['err'])) echo $data['err']['username']; ?></span></td>
+            <td colspan="2" align="right"><span class="error"> <?php if(isset($data['err']['username'])) echo $data['err']['username']; ?></span></td>
         </tr>
         <tr>
             <td><label>Email</label></td>
-            <td><input type="email" name="email" value="<?php echo $data['listUsers']['email'] ?>"/></td>
+            <td><input type="email" name="email" value="<?php if(isset($data['listUsers'])) echo $data['listUsers']['email'];
+                if(isset($data['user']['email'])) echo $data['user']['email']; ?>"/></td>
         </tr>
         <tr>
-            <td colspan="2" align="right"><span class="error"> <?php if(isset($data['err'])) echo $data['err']['email']; ?></span></td>
+            <td colspan="2" align="right"><span class="error"> <?php if(isset($data['err']['email'])) echo $data['err']['email']; ?></span></td>
         </tr>
         <tr>
             <td><label>Address</label></td>
-            <td><input type="text" name="address" value="<?php echo $data['listUsers']['address'] ?>"/></td>
+            <td><input type="text" name="address" value="<?php if(isset($data['listUsers'])) echo $data['listUsers']['address'];
+                if(isset($data['user']['address'])) echo $data['user']['address']?>"/></td>
         </tr>
         <tr>
-            <td colspan="2" align="right"><span class="error"> <?php if(isset($data['err'])) echo $data['err']['address']; ?></span></td>
+            <td colspan="2" align="right"><span class="error"> <?php if(isset($data['err']['address'])) echo $data['err']['address']; ?></span></td>
         </tr>
         <tr>
             <td><label>Country</label></td>
-            <td><input type="text" name="country" value="<?php echo $data['listUsers']['country'] ?>"/></td>
+            <td><input type="text" name="country" value="<?php if(isset($data['listUsers'])) echo $data['listUsers']['country'];
+                if(isset($data['user']['country'])) echo $data['user']['country']?>"/></td>
         </tr>
         <tr>
-            <td colspan="2" align="right"><span class="error"> <?php if(isset($data['err'])) echo $data['err']['country']; ?></span></td>
+            <td colspan="2" align="right"><span class="error"> <?php if(isset($data['err']['country'])) echo $data['err']['country']; ?></span></td>
         </tr>
         <tr>
             <td><label>Phone</label></td>
-            <td><input type="text" name="phone" value="<?php echo $data['listUsers']['phone'] ?>"/></td>
+            <td><input type="text" name="phone" value="<?php if(isset($data['listUsers'])) echo $data['listUsers']['phone'];
+                if(isset($data['user']['phone'])) echo $data['user']['phone']?>"/></td>
         </tr>
         <tr colspan="2" align="right">
-            <td colspan="2" align="right"><span class="error"> <?php if(isset($data['err'])) echo $data['err']['phone']; ?></span></td>
+            <td colspan="2" align="right"><span class="error"> <?php if(isset($data['err']['phone'])) echo $data['err']['phone']; ?></span></td>
         </tr>
         <tr>
             <td><label>Gender</label></td>
             <td>
-                <input type="radio" name="gender" <?php if (isset($data['listUsers']['gender']) && $data['listUsers']['gender'] == "female") echo "checked"; ?>
+                <input type="radio" name="gender" <?php if (isset($data['listUsers']['gender']) && $data['listUsers']['gender'] == "female") echo "checked";
+                if (isset($data['user']['gender']) && $data['user']['gender'] == "female") echo "checked";?>
                        value="female">Female
-                <input type="radio" name="gender" <?php if (isset($data['listUsers']['gender']) && $data['listUsers']['gender'] == "male") echo "checked"; ?>
+                <input type="radio" name="gender" <?php if (isset($data['listUsers']['gender']) && $data['listUsers']['gender'] == "male") echo "checked";
+                if (isset($data['user']['gender']) && $data['user']['gender'] == "female") echo "checked"; ?>
                        value="male">Male
             </td>
         </tr>
         <tr>
             <td colspan="2" align="right">
-                <span class="error"> <?php if (isset($data['err'])) echo $data['err']['gender']; ?></span>
+                <span class="error"> <?php if (isset($data['err']['gender'])) echo $data['err']['gender']; ?></span>
             </td>
         </tr>
         <tr>

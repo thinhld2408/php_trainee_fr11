@@ -25,6 +25,7 @@ Class model_users extends database
 
     function update($tblName,$data){
         $sql= "UPDATE $tblName SET username = '".$data['username']."', email = '".$data['email']."', address = '".$data['address']."', country = '".$data['country']."', phone = ".$data['phone'].", gender = '".$data['gender']."' WHERE id = '".$data['id']."'";
+        echo $sql;die();
         if($this->query($sql)){
             return true;
         }

@@ -1,18 +1,3 @@
-<?php
-if(isset($_GET['page'])){
-    $page = $_GET['page'];
-}
-else {
-    echo 'xx';
-    $page = 1;
-}
-$model = new model_pagination();
-$totalRe = $model->totalRecord();
-$totalPage = $model->totalPage($totalRe);
-$pageCurrent = $model->currentRow($page);
-$query_page = $model->getDataPage($pageCurrent);
-
-?>
 <form>
     <table style="position: relative;top: 40px;left: 10px;" cellpadding="10" cellspacing="1">
         <tbody>
@@ -31,7 +16,7 @@ $query_page = $model->getDataPage($pageCurrent);
         </tr>
         <?php
 
-            foreach ($query_page as $user){
+            foreach ($data['listUser'] as $user){
         ?>
         <form method="post" action="">
             <tr>
@@ -58,13 +43,13 @@ $query_page = $model->getDataPage($pageCurrent);
                 <td colspan="6" style="text-align:center;border-bottom:#F0F0F0 1px solid;">
                     <p id="pagination"><?php
                         $listPage = "";
-                        for($i=1; $i <= $totalPage;$i++){
+                        for($i=1; $i <= $data['totalPage'];$i++){
                             if($i == $listPage)// $i="";$_GET['page']="";
                             {
                                 $listPage = '<span>'.$i .'</span>';
                             }
                             else {
-                                $listPage .= '<a href="index.php?controller=users&action=listView?page='.$i.'">'.$i.' '.'</a>';
+                                $listPage .= '<a href="index.php?controller=users&action=listView&page='.$i.'">'.$i.' '.'</a>';
                             }
                         }
                         echo $listPage;

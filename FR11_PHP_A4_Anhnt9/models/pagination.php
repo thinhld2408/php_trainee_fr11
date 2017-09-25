@@ -7,6 +7,7 @@
  */
 
 class model_pagination extends database {
+    public $_rowsPerPage = 5;
     public function  totalRecord(){
         $sql = "SELECT * FROM tbl_trainee";
         $this->query($sql);
@@ -14,20 +15,17 @@ class model_pagination extends database {
         return $result;
     }
     public function getDataPage($perRow){
-        $rowsPerPage = 5;
-        $sql = "SELECT * FROM tbl_trainee LIMIT ".$perRow.",".$rowsPerPage."";
+        $sql = "SELECT * FROM tbl_trainee LIMIT ".$perRow.",".$this->_rowsPerPage."";
         $this->query($sql);
         $result = $this->fetch_all();
         return $result;
     }
     public function totalPage($rows){
-        $rowsPerPage = 5;
-        $pageRow = ceil($rows/$rowsPerPage);
+        $pageRow = ceil($rows/$this->_rowsPerPage);
         return $pageRow;
     }
     public function currentRow( $page){
-        $rowsPerPage = 5;
-        $currentPage = $page*$rowsPerPage - $rowsPerPage;
+        $currentPage = $page*$this->_rowsPerPage - $this->_rowsPerPage;
         return $currentPage;
     }
 }
